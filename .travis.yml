@@ -16,7 +16,8 @@ before_install:
   - docker-compose -f .docker/docker-compose.yml up -d db
   - docker-compose -f .docker/docker-compose.yml build dog-test
   - docker-compose -f .docker/docker-compose.yml run dog-test rake db:migrate
-  - docker-compose -f .docker/docker-compose.yml run dog-test rake test
+
+install:
 
 script:
-  - rake test
+  - docker-compose -f .docker/docker-compose.yml run dog-test rake test
