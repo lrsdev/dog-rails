@@ -1,5 +1,4 @@
 sudo: required
-language: ruby
 services:
 - docker
 env:
@@ -16,8 +15,6 @@ before_install:
   - docker-compose -f .docker/docker-compose.yml up -d db
   - docker-compose -f .docker/docker-compose.yml build dog-test
   - docker-compose -f .docker/docker-compose.yml run dog-test rake db:migrate
-
-install:
 
 script:
   - docker-compose -f .docker/docker-compose.yml run dog-test rake test
