@@ -1,6 +1,6 @@
-# docker-compose for setting up the ephemreal test environment
-dog-test:
-  build: ../
+# docker-compose for seting up test and build environment in travis ci
+dog-rails-dev:
+  image: lrsdevelopment/dog-rails-dev
   links:
     - db
   environment:
@@ -12,3 +12,4 @@ db:
   environment:
     POSTGRES_USER: test
   container_name: db
+  privileged: true
