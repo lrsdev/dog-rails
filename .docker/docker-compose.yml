@@ -12,3 +12,4 @@ db:
   environment:
     POSTGRES_USER: test
   container_name: db
+  privileged: true
