@@ -26,8 +26,8 @@ ADD ./.dockerconfig/secret_key.conf /etc/nginx/main.d/secret_key.conf
 ADD ./.dockerconfig/aws.conf /etc/nginx/main.d/aws.conf
 
 # Add SSL certs (travis ci decrypts at build time)
-ADD ./.dockerconfig/certs/dogbeaches.crt /etc/nginx/ssl/dogbeaches.crt
-ADD ./.dockerconfig/certs/dogbeaches.key /etc/nginx/ssl/dogbeaches.key
+#ADD ./.dockerconfig/certs/dogbeaches.crt /etc/nginx/ssl/dogbeaches.crt
+#ADD ./.dockerconfig/certs/dogbeaches.key /etc/nginx/ssl/dogbeaches.key
 
 # Add rails app
 ADD . /home/app/dogbeaches
