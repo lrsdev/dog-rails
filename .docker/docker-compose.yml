@@ -1,0 +1,14 @@
+# docker-compose for setting up the ephemreal test environment
+dog-test:
+  build: ../
+  links:
+    - db
+  environment:
+    RAILS_ENV: test
+  container_name: dog-test
+
+db:
+  image: mdillon/postgis:9.4
+  environment:
+    POSTGRES_USER: test
+  container_name: db
