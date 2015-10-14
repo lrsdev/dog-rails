@@ -44,5 +44,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add env file, execute (decrpyted by travis ci)
 ADD ./.dockerconfig/env.sh /home/app/env.sh
-RUN sudo -u app /home/app/env.sh
+RUN chown -R app:app /home/app/env.sh
+RUN sudo -u app source /home/app/env.sh
 RUN rm /home/app/env.sh
