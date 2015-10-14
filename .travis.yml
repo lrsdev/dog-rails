@@ -11,10 +11,10 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
   -in .dockerconfig/env.sh.enc -out .dockerconfig/env.sh -d
 - openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
-  -in .dockerconfig/certs/dogbeaches.key.enc -out .dockerconfig/certs/dogbeaches.key
+  -in .dockerconfig/certs/dogbeaches.crt.enc -out .dockerconfig/certs/dogbeaches.crt
   -d
 - openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
-  -in .dockerconfig/certs/dogbeaches.crt.enc -out .dockerconfig/certs/dogbeaches.crt
+  -in .dockerconfig/certs/dogbeaches.key.enc -out .dockerconfig/certs/dogbeaches.key
   -d
 - curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname
   -s`-`uname -m` > docker-compose
