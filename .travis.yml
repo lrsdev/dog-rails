@@ -16,8 +16,8 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
     -in .dockerconfig/env.sh.enc -out .dockerconfig/env.sh -d
   - openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
-    -in dockerfiles/certs/dogbeaches.key.enc -out dockerfiles/certs/dogbeaches.key -d
+    -in .dockerconfig/certs/dogbeaches.key.enc -out .dockerconfig/certs/dogbeaches.key -d
   - openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
-    -in dockerfiles/certs/dogbeaches.crt.enc -out dockerfiles/certs/dogbeaches.crt -d
+    -in .dockerconfig/certs/dogbeaches.crt.enc -out .dockerconfig/certs/dogbeaches.crt -d
   - docker build -t lrsdevelopment/dog-rails-dev .
   - docker run -d -P lrsdevelopment/dog-rails-dev
