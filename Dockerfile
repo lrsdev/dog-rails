@@ -1,6 +1,8 @@
 # See https://github.com/phusion/passenger-docker for base image information
 FROM phusion/passenger-ruby22:0.9.17
 
+MAINTAINER Samuel Stewart <samuelcstewart@icloud.com>
+
 # Paperclip (image attachment manager) requires imagemagick.
 RUN apt-get -y install imagemagick
 
@@ -16,16 +18,16 @@ EXPOSE 80 443
 RUN rm /etc/nginx/sites-enabled/default
 
 # Add nginx site config
-ADD ./dockerfiles/dogbeaches.conf /etc/nginx/sites-enabled/dogbeaches.conf
+ADD ./.dockerconfig/dogbeaches.conf /etc/nginx/sites-enabled/dogbeaches.conf
 
-# Add env configs
-ADD ./dockerfiles/database.conf /etc/nginx/main.d/database.conf
-ADD ./dockerfiles/secret_key.conf /etc/nginx/main.d/secret_key.conf
-ADD ./dockerfiles/aws.conf /etc/nginx/main.d/aws.conf
+# Add env configs (required to proprogate envars to nginx child process)
+ADD ./.dockerconfig/database.conf /etc/nginx/main.d/database.conf
+ADD ./.dockerconfig/secret_key.conf /etc/nginx/main.d/secret_key.conf
+ADD ./.dockerconfig/aws.conf /etc/nginx/main.d/aws.conf
 
-# Add SSL certs
-ADD ./dockerfiles/certs/dogbeaches.crt /etc/nginx/ssl/dogbeaches.crt
-ADD ./dockerfiles/certs/dogbeaches.key /etc/nginx/ssl/dogbeaches.key
+# Add SSL certs (travis ci decrypts at build time)
+ADD ./.dockerconfig/certs/dogbeaches.crt /etc/nginx/ssl/dogbeaches.crt
+ADD ./.dockerconfig/certs/dogbeaches.key /etc/nginx/ssl/dogbeaches.key
 
 # Add rails app
 ADD . /home/app/dogbeaches
@@ -39,3 +41,8 @@ RUN rm -f /etc/service/nginx/down
 
 # Clean up apt
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Add env file, execute (decrpyted by travis ci)
+ADD ./.dockerconfig/env.sh /home/app/env.sh
+RUN sudo -u app /home/app/env.sh
+RUN rm /home/app/env.sh
