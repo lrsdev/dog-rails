@@ -28,22 +28,24 @@ ADD ./.dockerconfig/aws.conf /etc/nginx/main.d/aws.conf
 # Add SSL certs (travis ci decrypts at build time)
 #ADD ./.dockerconfig/certs/dogbeaches.crt /etc/nginx/ssl/dogbeaches.crt
 #ADD ./.dockerconfig/certs/dogbeaches.key /etc/nginx/ssl/dogbeaches.key
-
-# Add rails app
-ADD . /home/app/dogbeaches
-RUN chown -R app:app /home/app/dogbeaches
-
-WORKDIR /home/app/dogbeaches
-RUN sudo -u app bundle install
-
-# Enable Nginx and Passenger
-RUN rm -f /etc/service/nginx/down
-
-# Clean up apt
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+WORKDIR /tmp
+ADD Gemfile /tmp/
+ADD Gemfile.lock /tmp/
+RUN bundle install
 
 # Add env file, execute (decrpyted by travis ci)
 ADD ./.dockerconfig/env.sh /home/app/env.sh
 RUN chown -R app:app /home/app/env.sh
 RUN sudo -u app source /home/app/env.sh
 RUN rm /home/app/env.sh
+
+# Enable Nginx and Passenger
+RUN rm -f /etc/service/nginx/down
+
+# Add rails app
+ADD . /home/app/dogbeaches
+RUN chown -R app:app /home/app/dogbeaches
+
+# Clean up apt
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
