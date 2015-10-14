@@ -23,9 +23,7 @@ development:
 test:
   adapter: postgis
   encoding: utf8
-  database: dogbeaches_test
-  username: <%= ENV["POSTGRES_TEST_USERNAME"] %>
-  password: <%= ENV["POSTGRES_TEST_PASSWORD"] %>
-  su_username: <%= ENV["POSTGRES_TEST_SU"] %>
-  su_password: <%= ENV["POSTGRES_TEST_SU_PASSWORD"] %>
-  host: <%= ENV["POSTGRES_TEST_HOST"] %>
+  database: test
+  username: test 
+  su_username: test
+  host: db

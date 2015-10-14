@@ -8,11 +8,13 @@ env:
   - secure: LjJ3DFFCoCXR9qR9b1NeNpvHJa+Pb46ydJ3IHtbT/Xbsh/DdEKTHukZ5h4zAj7+uVVEPUXHPheqIHGo/qlMqpL2mevhKDTZQQqRM+Xx+wf7Epfm/ivCUJVNdXdDNCOODp+oaMJAPQdqteOVdwiEyVT8RGKjmgyFSp2KD2/ArCnfd91KS6g0rNZaHFfUu89Dx38+S8aY6wpt4TFPJLlxqyxi2NqtUkidqH9ZMuyFOe0SFfA699bMxTjKPIrwPpqUzb4AKZizppuXnZriqpF9vL0+dHmcB5xLQXaik5MKMr4FENbJ5amDgsn98gFOvRQm4zG/HbIv+vpdJy/ClADSyVYICycm6BPk/Bjm91xm7ggRCAvc6RNgfNUmFjChGHe6o6aNPvvBC5e1OqVbZNKZ96dGdrW2fcpmAeD8Khhlc+alEzST09Ijb4VS/CRPJyIJGqAc8N5U1wDaO2ZSQ3vuRiVy3/UmeS0RHbB2ci32c3etzOpLPpZmO0ql7QiqO6wNL73zF7Fj/aCDQ3fwPUF6IHC4jVcdhJcXPdl7STk/kgbXbAyNQ9f1o8GDoJEX3pu9N4p1/WzvdA51pMp+h7CE20S+ILasOanu0CpDK8dnSwgiRHdLj1xh9YJIg/KPeGo0xr+BSYIV8wP3tCd/T/T6eRy2Kionx+0x0yboeTd7IS+4=
   - secure: dFE/aX0vZSiseDhGZS/SOroB0LohtqXgMIUprJiLTUUwXtv2PDBX7HPRaPlInITDHFt6Gx3Qhkl+5bOBbb7QgfespjUrIveP5WCtKGvdVwy3ppiuPpKXtIjgthBJOArHw846+QqLG0FNntkm2cyUZG/BSnJir/xg58c/DhjmUZxXVD45utBubGCKLv7vV57l2NcgOYBQFrolazGpuCu6Vu6cNlKhF6J8/pUJtfDAqtpoSMIzNmTwn0s2J/x9wbL1ShzimB+NToA481tRjh8Ugw+BsTO+pSulr/8ywLUPulw/rh9FL6ua4cCCkhCMaqFLef/Fx+qkHLYvIZ17Ht9CIlIhTNzOP13X7IzyZvia9t0d22SjUnnhq0AKnSbApm8jloRgvgiw8sYSYigzFuRGr3eu/MKrVLNVTqaujsgyRVD8FhPkAIBobNs+f8PxIgJ/3Gj++Bc9ZiRhToOdgcwmWEP5kUakDjyh6BBbyPozF87BpftrrhwOf62IC7txqAtNc572t5YKpajRVromrYrC9gzYse4ajD06LJHJya+0ehilW8FYbddRnB2+eLfgz3Tgzv2LwA1oYRe7uRDDB9Yn9+FZwvDOYb9+/ffnKCrrTDvkC4dEa45Z++y1ZYi4STPi9cJwokpzfGCDxHQgjQKGsgRmvfpU6vNwb9oJArwNcLM=
 before_install:
-- openssl aes-256-cbc -K $encrypted_7fdb0d79b3f2_key -iv $encrypted_7fdb0d79b3f2_iv
-  -in .dockerconfig/env.sh.enc -out .dockerconfig/env.sh -d
-- curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname
-  -s`-`uname -m` > docker-compose
-- chmod +x docker-compose
-- sudo mv docker-compose /usr/local/bin
-- docker build -t lrsdevelopment/dog-rails-dev .
-- docker run -d -P lrsdevelopment/dog-rails-dev
+  - curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname
+    -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - cd .docker; docker-compose build
+  - docker-compose run dog-test rake db:migrate
+  - docker-compose run dog-test rake test
+
+script:
+  - rake test
