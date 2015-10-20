@@ -12,13 +12,9 @@ env:
   - secure: dFE/aX0vZSiseDhGZS/SOroB0LohtqXgMIUprJiLTUUwXtv2PDBX7HPRaPlInITDHFt6Gx3Qhkl+5bOBbb7QgfespjUrIveP5WCtKGvdVwy3ppiuPpKXtIjgthBJOArHw846+QqLG0FNntkm2cyUZG/BSnJir/xg58c/DhjmUZxXVD45utBubGCKLv7vV57l2NcgOYBQFrolazGpuCu6Vu6cNlKhF6J8/pUJtfDAqtpoSMIzNmTwn0s2J/x9wbL1ShzimB+NToA481tRjh8Ugw+BsTO+pSulr/8ywLUPulw/rh9FL6ua4cCCkhCMaqFLef/Fx+qkHLYvIZ17Ht9CIlIhTNzOP13X7IzyZvia9t0d22SjUnnhq0AKnSbApm8jloRgvgiw8sYSYigzFuRGr3eu/MKrVLNVTqaujsgyRVD8FhPkAIBobNs+f8PxIgJ/3Gj++Bc9ZiRhToOdgcwmWEP5kUakDjyh6BBbyPozF87BpftrrhwOf62IC7txqAtNc572t5YKpajRVromrYrC9gzYse4ajD06LJHJya+0ehilW8FYbddRnB2+eLfgz3Tgzv2LwA1oYRe7uRDDB9Yn9+FZwvDOYb9+/ffnKCrrTDvkC4dEa45Z++y1ZYi4STPi9cJwokpzfGCDxHQgjQKGsgRmvfpU6vNwb9oJArwNcLM=
 
 before_install:
-  - curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname
-    -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - docker build -t lrsdevelopment/dog-rails-dev .
   - docker run -d -e POSTGRES_USER=test --privileged=true --name=db mdillon/postgis:9.4
-  - docker run -e RAILS_ENV=test --name=dog-rails-test --link=db lrsdevelopment/dog-rails-dev rake migrate
+  - docker build -t lrsdevelopment/dog-rails-dev .
+  - docker run -e RAILS_ENV=test --name=dog-rails-test --link=db lrsdevelopment/dog-rails-dev rake db:migrate
 
 script:
   - docker run -e RAILS_ENV=test --name=dog-rails-test --link=db lrsdevelopment/dog-rails-dev rake test
