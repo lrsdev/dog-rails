@@ -1,5 +1,8 @@
 language: bash
 sudo: required
+branches:
+  only:
+    - development
 services:
 - docker
 env:
@@ -13,9 +16,13 @@ before_install:
     -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose -f .docker/docker-compose.yml up -d db
-  - docker-compose -f .docker/docker-compose.yml build dog-test
-  - docker-compose -f .docker/docker-compose.yml run dog-test rake db:migrate
+  - docker build -t lrsdevelopment/dog-rails-dev .
+  - docker run -e -d POSTGRES_USER=test --privileged=true --name=db mdillon/postgis:9.4
+  - docker run -e RAILS_ENV=test --name=dog-rails-test --link=db lrsdevelopment/dog-rails-dev rake migrate
 
 script:
-  - docker-compose -f .docker/docker-compose.yml run dog-test rake test
+  - docker run -e RAILS_ENV=test --name=dog-rails-test --link=db lrsdevelopment/dog-rails-dev rake test
+
+after_success:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" tatum.co
+  - docker push dog-rails-dev
