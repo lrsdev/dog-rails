@@ -20,5 +20,5 @@ script:
   - docker run -e RAILS_ENV=test --link=db lrsdevelopment/dog-rails-dev rake test
 
 after_success:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" tatum.co
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" tutum.co
   - docker push lrsdevelopment/dog-rails-dev
