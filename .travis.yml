@@ -14,10 +14,10 @@ env:
 before_install:
   - docker run -d -e POSTGRES_USER=test --privileged=true --name=db mdillon/postgis:9.4
   - docker build -t tutum.co/lrsdevelopment/dog-rails-dev .
-  - docker run -e RAILS_ENV=test --link=db lrsdevelopment/dog-rails-dev rake db:migrate
+  - docker run -e RAILS_ENV=test --link=db tutum.co/lrsdevelopment/dog-rails-dev rake db:migrate
 
 script:
-  - docker run -e RAILS_ENV=test --link=db lrsdevelopment/dog-rails-dev rake test
+  - docker run -e RAILS_ENV=test --link=db tutum.co/lrsdevelopment/dog-rails-dev rake test
 
 after_success:
   - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" tutum.co
