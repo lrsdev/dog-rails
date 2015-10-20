@@ -17,7 +17,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker build -t lrsdevelopment/dog-rails-dev .
-  - docker run -e -d POSTGRES_USER=test --privileged=true --name=db mdillon/postgis:9.4
+  - docker run -d -e POSTGRES_USER=test --privileged=true --name=db mdillon/postgis:9.4
   - docker run -e RAILS_ENV=test --name=dog-rails-test --link=db lrsdevelopment/dog-rails-dev rake migrate
 
 script:
