@@ -23,10 +23,10 @@ EXPOSE 80 443
 RUN rm /etc/nginx/sites-enabled/default
 
 # Add nginx site config
-ADD ./.docker/dogbeaches.conf /etc/nginx/sites-enabled/dogbeaches.conf
+ADD ./containerconfig/dogbeaches.conf /etc/nginx/sites-enabled/dogbeaches.conf
 
 # Add env configs (required to proprogate envars to nginx child process)
-ADD ./.docker/rails-env.conf /etc/nginx/main.d/rails-env.conf
+ADD ./containerconfig/rails-env.conf /etc/nginx/main.d/rails-env.conf
 
 # Enable Nginx and Passenger
 RUN rm -f /etc/service/nginx/down
