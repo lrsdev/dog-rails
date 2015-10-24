@@ -1,0 +1,29 @@
+## All database credentials should be provided by environment variables.
+
+production:
+  adapter: postgis
+  encoding: utf8
+  database: dogbeaches
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  su_username: <%= ENV["POSTGRES_SU"] %>
+  su_password: <%= ENV["POSTGRES_SU_PASSWORD"] %>
+  host: <%= ENV["POSTGRES_HOST"] %>
+
+development:
+  adapter: postgis
+  encoding: utf8
+  database: dogbeaches_dev
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  su_username: <%= ENV["POSTGRES_SU"] %>
+  su_password: <%= ENV["POSTGRES_SU_PASSWORD"] %>
+  host: <%= ENV["POSTGRES_HOST"] %>
+
+test:
+  adapter: postgis
+  encoding: utf8
+  database: test
+  username: test 
+  su_username: test
+  host: db
