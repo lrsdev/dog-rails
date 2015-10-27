@@ -3,7 +3,7 @@
 dograils-test:
   build: .
   environment:
-    - RAILS_ENV=test
+    RAILS_ENV: test
   links:
     - db
   command: rake spec
@@ -11,4 +11,4 @@ dograils-test:
 db:
   image: mdillon/postgis:9.4
   environment:
-    POSTGRES_USER=test
+    POSTGRES_USER: test
