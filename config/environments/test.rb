@@ -40,10 +40,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => 'dogbeaches-test',
-      :s3_host_name => 's3-ap-southeast-2.amazonaws.com'
-    }
+       path: ':rails_root/test_uploads/:class/:id/:attachment/:filename.:extension',
+       url: ':rails_root/test_uploads/:class/:id/:attachment/:filename.:extension'
   }
 end
