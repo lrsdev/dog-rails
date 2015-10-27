@@ -15,8 +15,11 @@ describe Location do
   it { should validate_presence_of(:animal_blurb) }
   it { should validate_presence_of(:geolocation) }
   it { should validate_presence_of(:image) }
-  it { should define_enum_for(:region) }
-  it { should define_enum_for(:category) }
+  it { should define_enum_for(:region).
+    with(["Southland", "Otago", "Canterbury", "Westland", "Marlborough",
+      "Nelson", "Wellington", "Hawke's Bay", "New Plymouth", "Auckland"])}
+  it { should define_enum_for(:category).
+    with([:beach, :track, :park])}
   it { should have_attached_file(:image) }
   it { should validate_attachment_presence(:image) }
   it { should validate_attachment_content_type(:image).

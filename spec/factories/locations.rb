@@ -10,6 +10,7 @@ FactoryGirl.define do
     geolocation 'POINT(123.333 56.53)'
     animal_blurb 'Some blurb'
     region 0
+    active true
     category 0
     name 'Some name'
     image { fixture_file_upload "#{Rails.root}/spec/fixtures/images/test.jpg", 'image/jpg' }
