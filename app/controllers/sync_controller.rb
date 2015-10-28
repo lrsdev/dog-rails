@@ -3,6 +3,8 @@ class SyncController < ApplicationController
   def index
     if params[:from]
       @timestamp = params[:from]
+
+      # Sync assigns a timestamp in constructor
       @sync = Sync.new()
 
       # Goto database once for each model
