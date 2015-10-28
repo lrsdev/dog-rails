@@ -3,11 +3,9 @@
 # with postgres and postgis extensions is pulled and initialized to reflect the production
 # environment. (Pushes to the development repository are built automatically by tutum)
 #
-# Equally, this file can be used to test locally on a dev machine with docker and docker-compose
-# installed. Execute run_tests.sh on the command line.
 #
 sut:
-  build: .
+  image: this
   environment:
     RAILS_ENV: test
   links:
