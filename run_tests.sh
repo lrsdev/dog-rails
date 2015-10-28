@@ -11,6 +11,9 @@ PROJECT_NAME="dogbeaches"
 docker-compose -f ${TEST_FILENAME} -p $PROJECT_NAME up -d db
 sleep 5s
 
+# Rebuild sut image each time
+docker-compose -f ${TEST_FILENAME} -p $PROJECT_NAME build sut
+
 docker-compose -f ${TEST_FILENAME} -p $PROJECT_NAME up -d sut
 docker logs -f ${PROJECT_NAME}_sut_1
 RET=$(docker wait ${PROJECT_NAME}_sut_1)

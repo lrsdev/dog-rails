@@ -22,5 +22,8 @@ module DogRails
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Force SSL Only in admin section
+    config.middleware.use Rack::SslEnforcer, :only => /^\/admin\//, :strict => true
   end
 end
