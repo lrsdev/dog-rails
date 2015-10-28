@@ -1,7 +1,7 @@
 # This compose file is used by tutum to build a container and execute rspec tests in that
 # container. If tests fail, the image will not be pushed to the registry. A database container
 # with postgres and postgis extensions is pulled and initialized to reflect the production
-# environment. (Pushes to the development repository are built automatically by tutum)
+# environment. 
 #
 #
 sut:
@@ -10,7 +10,7 @@ sut:
     RAILS_ENV: test
   links:
     - db
-  command: rake spec
+  command: /bin/sh run_tests_tutum.sh
 
 db:
   image: mdillon/postgis:9.4
